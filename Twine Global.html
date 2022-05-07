@@ -177,7 +177,7 @@ color: coral;
 }
 
 .caption {
-font-size: 150%;
+font-size: 130%;
 color: silver;
 }
 
@@ -273,18 +273,51 @@ transition: 1s all ease;
 В стене рядом — небольшой монитор с клавиатурой. Амели подошла первая и быстро провела длинными пальцами по стертым кнопкам. Жестом пригласила меня присоединиться. 
 
 На экране светилась команда &lt;span class=&quot;command&quot;&gt;&quot;Введите имя&quot;&lt;/span&gt;
-&lt;&lt;textbox &quot;$name&quot; &quot;&quot;&gt;&gt;
+&lt;&lt;textbox &quot;$name&quot; &quot;&quot; autofocus&gt;&gt;
 
-С трудом различая клавиши, я [[напечатала...|typingName]]</tw-passagedata><tw-passagedata pid="6" name="typingName" tags="computer" position="701,560" size="100,100">&lt;span class=&quot;typing&quot;&gt;$name&lt;/span&gt;
+С трудом различая клавиши, я [[напечатала...|typingName]]
+
+&lt;&lt;script&gt;&gt;
+postrender[&quot;Limit Name&quot;] = function (content, taskName) {
+	delete postrender[taskName];
+
+	$(content).find(&quot;#textbox-name&quot;)
+		.attr(&quot;maxlength&quot;, 15)
+		.keyup(function(event) {
+			if (event.target.value.length &gt; 15) {
+				event.target.value = event.target.value.substring(0, 15);
+			}
+		});		
+};
+&lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="typingName" tags="computer" position="701,560" size="100,100">&lt;span class=&quot;typing&quot;&gt;$name&lt;/span&gt;
 
 &lt;&lt;if $name is &quot;&quot;&gt;&gt; — Нам не пройти дальше, не вписав своего имени, — подсказала Амели.
 
 &lt;span class=&quot;command&quot;&gt;Введите имя:&lt;/span&gt;
-&lt;&lt;textbox &quot;$name&quot; &quot;Сонна&quot;&gt;&gt;
+&lt;&lt;textbox &quot;$name&quot; &quot;Сонна&quot; autofocus&gt;&gt;
 
 Я напечатала имя и [[подтвердила|nameConfirmed]] ввод.
+&lt;&lt;elseif /[^А-яЁё]/i.test($name)&gt;&gt;— Ты что-то делаешь не так, — подсказала Амели. - Разве в твоем имени были цифры, пробелы и странные символы?
+
+&lt;span class=&quot;command&quot;&gt;Введите имя:&lt;/span&gt;
+&lt;&lt;textbox &quot;$name&quot; &quot;Сонна&quot; autofocus&gt;&gt;
+
+Я напечатала имя корректно и [[подтвердила|nameConfirmed]] ввод.
 &lt;&lt;else&gt;&gt;Я [[проверила|changeName]], что все верно и [[подтвердила|nameConfirmed]] ввод.
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="nameConfirmed" tags="mask" position="800,700" size="100,100">Мне не терпелось пройти дальше, и с молчаливого согласия Амели я нажала на кнопку звонка. Вдалеке послышался скрежет и характерный щелчок. Тяжелая дверь приоткрылась и нас ослепил яркий свет следующей комнаты. В темноту вышел человек в черной маске, полностью скрывающей лицо. 
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;script&gt;&gt;
+postrender[&quot;Limit Name&quot;] = function (content, taskName) {
+	delete postrender[taskName];
+
+	$(content).find(&quot;#textbox-name&quot;)
+		.attr(&quot;maxlength&quot;, 20)
+		.keyup(function(event) {
+			if (event.target.value.length &gt; 20) {
+				event.target.value = event.target.value.substring(0, 10);
+			}
+		});		
+};
+&lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="nameConfirmed" tags="mask" position="800,700" size="100,100">Мне не терпелось пройти дальше, и с молчаливого согласия Амели я нажала на кнопку звонка. Вдалеке послышался скрежет и характерный щелчок. Тяжелая дверь приоткрылась и нас ослепил яркий свет следующей комнаты. В темноту вышел человек в черной маске, полностью скрывающей лицо. 
 
 У меня перехватило дыхание. О таких как он, я только слышала — &quot;Организаторы&quot;, как они себя называют. &quot;Маски&quot;, как говорят о них люди. Никто не знает их имен, возраста или пола. Их никогда не встретишь на верхних этажах, но они всегда рядом. Следят за благополучием жителей Глобала. Наблюдают. Выбирают лучших из лучших. Если ты проходишь отбор — тебя пригласят на работу. Так пару лет назад письмо пришло Конелу, брату Амели. 
 
@@ -293,9 +326,22 @@ transition: 1s all ease;
 Амели до боли впилась пальцами в мою руку.
 &lt;ul&gt;&lt;li&gt;[[Протянуть приглашение|giveInvitation]]&lt;/li&gt; 
 &lt;li&gt;[[Посмотреть на Амели|lookAtAmeli]]&lt;/li&gt;&lt;/ul&gt;</tw-passagedata><tw-passagedata pid="8" name="changeName" tags="computer" position="603,701" size="100,100">&lt;span class=&quot;command&quot;&gt;Введите имя:&lt;/span&gt;
-&lt;&lt;textbox &quot;$name&quot; &quot;Сонна&quot;&gt;&gt;
+&lt;&lt;textbox &quot;$name&quot; &quot;Сонна&quot; autofocus&gt;&gt;
 
-В этот раз все правильно —  я нажала кнопку [[&quot;подтвердить&quot;|nameConfirmed]].</tw-passagedata><tw-passagedata pid="9" name="giveInvitation" tags="mask" position="700,860" size="100,100">Мы пришли подготовленные. Собрали целую гору документов: приглашение к Конелу, пропуск на лифт, соглашение о неразглашении. Не говоря уже о том, что я предоставляла выписку из записей университета, медицинские справки и разрешение родителей.
+В этот раз все правильно —  я нажала кнопку [[&quot;подтвердить&quot;|nameConfirmed]].
+&lt;&lt;script&gt;&gt;
+postrender[&quot;Limit Name&quot;] = function (content, taskName) {
+	delete postrender[taskName];
+
+	$(content).find(&quot;#textbox-name&quot;)
+		.attr(&quot;maxlength&quot;, 20)
+		.keyup(function(event) {
+			if (event.target.value.length &gt; 20) {
+				event.target.value = event.target.value.substring(0, 10);
+			}
+		});		
+};
+&lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="giveInvitation" tags="mask" position="700,860" size="100,100">Мы пришли подготовленные. Собрали целую гору документов: приглашение к Конелу, пропуск на лифт, соглашение о неразглашении. Не говоря уже о том, что я предоставляла выписку из записей университета, медицинские справки и разрешение родителей.
 
 Я высвободилась из хватки Амели и полезла в карман брюк. В карман куртки, пиджака…
 
@@ -376,7 +422,7 @@ transition: 1s all ease;
 
 — Я могу вам доверять?
 &lt;ul&gt;&lt;li&gt;[[Конечно!|sure]]&lt;/li&gt;
-&lt;li&gt;[[Что ты задумал?|whatsWrong]]&lt;/li&gt;&lt;/ul&gt;</tw-passagedata><tw-passagedata pid="18" name="sure" tags="workshop" position="702,1798" size="100,100">Как в старые добрые времена, когда мы собирались у Амели и Конела дома, я по-свойски устроилась в старом кресле. Положила ногу на ногу и склонила голову на бок:
+&lt;li&gt;[[В чем дело?|whatsWrong]]&lt;/li&gt;&lt;/ul&gt;</tw-passagedata><tw-passagedata pid="18" name="sure" tags="workshop" position="702,1798" size="100,100">Как в старые добрые времена, когда мы собирались у Амели и Конела дома, я по-свойски устроилась в старом кресле. Положила ногу на ногу и склонила голову на бок:
 
 — О чем речь! Будто первый день знакомы.
 
@@ -936,13 +982,27 @@ transition: 1s all ease;
 
 Единственное, что было известно — номер должен быть четырехзначным.
 
-&lt;&lt;textbox &quot;$doorNum&quot; &quot;&quot;&gt;&gt;
-Надеясь на свою память и долю удачи, я [[ввела четыре цифры|doorNumber]].</tw-passagedata><tw-passagedata pid="60" name="doorNumber" tags="" position="2174,4799" size="100,100">&lt;span class=&quot;typing&quot;&gt;$doorNum&lt;/span&gt;
+&lt;&lt;textbox &quot;$doorNum&quot; &quot;&quot; autofocus&gt;&gt;
+Надеясь на память и долю удачи, я [[ввела четыре цифры|doorNumber]].
+&lt;&lt;script&gt;&gt;
+postrender[&quot;Limit DoorNum&quot;] = function (content, taskDoorNum) {
+	delete postrender[taskDoorNum];
+
+	$(content).find(&quot;#textbox-doornum&quot;)
+		.attr(&quot;maxlength&quot;, 4)
+		.keyup(function(event) {
+			if (event.target.value.length &gt; 4) {
+				event.target.value = event.target.value.substring(0, 4);
+			}
+		});		
+};
+&lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="doorNumber" tags="" position="2174,4799" size="100,100">&lt;span class=&quot;typing&quot;&gt;$doorNum&lt;/span&gt;
 
 &lt;&lt;if $doorNum is &quot;4652&quot;&gt;&gt; — Вот это память, $name! — похвалила Амели. &lt;&lt;set $memory to true&gt;&gt;
 &lt;&lt;else&gt;&gt;Номер оказался неправильный. Я было уже отчаялась, когда Амели подвинула меня от клавиатуры.
 
 — Кажется, я вспомнила, — она ввела &quot;4652&quot; и подтвердила.&lt;&lt;/if&gt;&gt;
+
 Дверь медленно открылась и мы вновь попали в темное затхлое помещение, полное ничего не подозревающих рабочих. Конел взял нас за руки и [[повел к лифту.|elevatorBack]]</tw-passagedata><tw-passagedata pid="61" name="elevatorBack" tags="" position="2362,4801" size="100,100">Побег от правосудия оказался слишком простым. Будто никто раньше даже не пытался вырваться из прославленного Сердца. Путь на наш этаж занял почти целый час. Целый час страха за свою жизнь.
 
 Отправляясь в сердце, я и подумать не могла, что придется бежать и надеяться никогда сюда не вернуться. Элита, запертая в неведении и тьме, детские картинки, из-за которых нас могли казнить как предателей. В голове не укладывалось.
